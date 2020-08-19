@@ -11,3 +11,8 @@ class Project(models.Model):
     description = HTMLField()
     date_posted = models.DateTimeField(auto_now_add=True)
     link = models.URLField(max_length=200,blank=True)
+
+    @classmethod
+    def get_projects(cls):
+        all_projects = cls.objects.all()
+        return all_projects 

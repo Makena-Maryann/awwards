@@ -1,0 +1,59 @@
+{%extends 'awards/base.html'%} 
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if projects%}
+      <h2>Found {{ projects|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 projects for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if projects%}
+  {% for project in projects %}
+  <div class="col-md-4">
+    <div class="card mt-2">
+     <img class="card-img-top" src="{{project.image.url}}" alt="Card image cap">
+     <div class="card-header btn bg-info font">
+      VOTE NOW
+     </div>
+     <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 font text-capitalize">
+            {{ project.title }}
+          </div>
+          <div class="col-md-6 text-right">
+            <small>
+              {{ project.date_posted|timesince }} ago
+            </small>
+          </div>
+        </div>
+        <p class="card-text">
+          {% autoescape on %} 
+          {{ project.description| safe|truncatewords:7 }}
+          {% endautoescape %}
+        </p>
+        <div class="row">
+          <div class="col-md-7">
+            By <span class="font">
+              {{project.user.username}}
+            </span>
+          </div>
+          <div class="col-md-5 text-right">
+            <a href="{{project.link}}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-info">
+            Visit Site
+            </a>
+          </div>
+        </div>
+     </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
